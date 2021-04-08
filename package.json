@@ -1,0 +1,24 @@
+{
+  "name": "movie_scripts",
+  "version": "0.5.0",
+  "description": "Helper script to parse and filter movie files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
+  },
+  "keywords": [],
+  "author": "Sagnik B",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "dependencies": {
+    "csv-writer": "^1.6.0",
+    "nedb": "^1.8.0",
+    "winston": "^3.3.3"
+  }
+}
