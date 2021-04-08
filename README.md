@@ -21,6 +21,8 @@ Dev dependencies include eslint and additional support files
 ```bash
 #Do make sure to lint before you push
 npm run lint
+#Create an empty directory MOVIE_FILES
+#refer to mover.js for explaination
 ```
 ## Installation
 
