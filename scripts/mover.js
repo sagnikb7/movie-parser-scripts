@@ -1,27 +1,35 @@
 /**
- *
+ * Mover
+ * This script picks a batch of movie files and updates data
  */
+const path = require('path');
 const db = require('../core/database');
 const Log = require('../core/logger');
-const { MOVIE_MOVE_LIMIT } = require('../constants');
+const { moveFiles } = require('../utils/file');
+const { MOVIE_MOVE_LIMIT, MOVIE_DESTINATION_DIR } = require('../constants');
 
 const logger = Log(__filename);
 
-db.find({ moved: false }).limit(MOVIE_MOVE_LIMIT).exec((err, docs) => {
-    if (err) throw new Error(err);
+const fetchMovieBatch = () => new Promise((res, rej) => {
+    db.find({ moved: false }).limit(MOVIE_MOVE_LIMIT).exec((err, docs) => {
+        if (err) rej(err);
 
-    logger.info(`Fetching a batch of ${docs.length} items`);
-
-    const ids = docs.map((d) => (d._id));
-
-    db.update({ _id: { $in: ids } },
-        { $set: { moved: true } },
-        { multi: true }, (err2, numReplaced) => {
-            if (err2) throw new Error(err);
-
-            logger.info(`updated ${numReplaced} items`);
-            // db.find({ moved: true }, (err, data) => {
-            //     console.log(data);
-            // });
-        });
+        logger.info(`Fetching a batch of ${docs.length} items`);
+        res(docs);
+    });
 });
+
+const main = async () => {
+    const movies = await fetchMovieBatch();
+    const proms = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const movie of movies) {
+        const p = moveFiles(movie.path, path.join(MOVIE_DESTINATION_DIR, movie.name));
+        proms.push(p);
+    }
+    await Promise.all(proms);
+    logger.info('Done moving');
+};
+
+main();

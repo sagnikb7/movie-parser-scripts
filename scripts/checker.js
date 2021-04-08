@@ -4,7 +4,7 @@
  * Lists them in a file & DB
  */
 
-const FileUtil = require('../utils/file');
+const { FileUtility } = require('../utils/file');
 const db = require('../core/database');
 const Log = require('../core/logger');
 const { writeData } = require('../utils/csv');
@@ -15,7 +15,7 @@ const logger = Log(__filename);
 const ARGS = process.argv.slice(2);
 if (!ARGS[0]) throw new Error('directory path cannot be blank');
 
-const fileUtil = new FileUtil(ARGS[0]);
+const fileUtil = new FileUtility(ARGS[0]);
 
 // if file not exists
 if (!fileUtil.checkDirectoryExists()) throw new Error('directory/file does not exist');
