@@ -21,14 +21,14 @@ Dev dependencies include eslint and additional support files
 ```bash
 #Do make sure to lint before you push
 npm run lint
-#Create an empty directory MOVIE_FILES
-#refer to mover.js for explaination
 ```
 ## Installation
 
 ```bash
 cd movie-parser-scripts
 npm install
+#Create an empty directory MOVIE_FILES in project base
+#movies files will be moved here, refer to mover.js for explaination
 ```
 ## Scripts
 Usage and functions of main scripts
@@ -40,12 +40,11 @@ Scans a specific directory for movies based on extensions like (.mp4, .avi, .mkv
 #point to any dir containing movies
 node scripts/checker.js <dir>
 #node scripts/checker.js /mnt/HDD/Movies
-
 ```
 
 #### 2. mover.js
 
-Based on the movies scanned by checker.js , this script picks a batch of movies moves it from it source directory to a desired direcory which can be configured at **MOVIE_DESTINATION_DIR** in /constants.js
+Based on the movies scanned by checker.js , this script picks a batch of movies, moves it from it source directory to a desired direcory which can be configured at **MOVIE_DESTINATION_DIR** in /constants.js default is MOVIE_FILES
 
 ```bash
 node scripts/mover.js
