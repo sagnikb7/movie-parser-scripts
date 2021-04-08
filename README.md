@@ -25,7 +25,7 @@ npm run lint
 ## Installation
 
 ```bash
-cd movie_scripts
+cd movie-parser-scripts
 npm install
 ```
 ## Scripts
